@@ -1,41 +1,45 @@
 from tkinter import *
 import random
 import tkinter.font as font
+from PIL import ImageTk, Image
 
 tk = Tk()
-tk.geometry('800x600')
+tk.geometry('800x800')
 tk.config()
+img_smile = ImageTk.PhotoImage(Image.open("smile.png"))
+img_sad = ImageTk.PhotoImage(Image.open("sad.png"))
 
 
-def check_sym(tot, element):
-    if element == "$":
-        tot += 1
+def buttons():
+    Button(tk, width=3, height=1, bg="white", text=el[0], font=myFont, command=default_buttons).grid(row=1, column=0, padx=30, pady=30)
+    Button(tk, width=3, height=1, bg="green", text=el[1], font=myFont, command=default_buttons).grid(row=1, column=1)
+    Button(tk, width=3, height=1, bg="red", text=el[2], font=myFont, command=default_buttons).grid(row=1, column=2, padx=30, pady=30)
+
+
+def emoticon(element):
+    if element == "1":
+        Label(tk, image=img_smile).grid(row=2, column=1)
     else:
-        tot -= 1
-    return tot
-
-
-total = 10
+        Label(tk, image=img_sad).grid(row=2, column=1)
 
 
 def but1():
-    global total
-    Button(tk, width=3, height=1, bg="white", text=el[0], font=myFont, command=default_buttons).grid(row=1, column=0,
-                                                                                                     padx=30, pady=30)
-    total = check_sym(total, el[0])
-    Label(tk, text=str(total)).grid(row=2, column=1)
+    buttons()
+    emoticon(el[0])
 
 
 def but2():
-    Button(tk, width=3, height=1, bg="green", text=el[1], font=myFont, command=default_buttons).grid(row=1, column=1)
+    buttons()
+    emoticon(el[1])
 
 
 def but3():
-    Button(tk, width=3, height=1, bg="red", text=el[2], font=myFont, command=default_buttons).grid(row=1, column=2,
-                                                                                                   padx=30, pady=30)
+    buttons()
+    emoticon(el[2])
 
 
-el = ['$', '0', '0']
+el = ['1', '0', '0']
+
 random.shuffle(el)
 myFont = font.Font(size=90)
 Label(tk, text='Please click Button:').grid(row=0, column=1)
@@ -49,17 +53,6 @@ def default_buttons():
     random.shuffle(el)
 
 
-Label(tk, text=str(total)).grid(row=2, column=1)
-Button(tk, text="Continued", bg='blue', command=default_buttons).grid(row=3, column=1)
-
 default_buttons()
 tk.mainloop()
-
-
-
-
-
-
-
-
 
